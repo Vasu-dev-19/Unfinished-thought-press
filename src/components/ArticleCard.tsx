@@ -32,7 +32,7 @@ export function ArticleRow({ article, index }: { article: Article; index: number
             {article.title}
           </h3>
           <p className="mt-3 max-w-2xl text-[1.02rem] leading-relaxed text-espresso-mid">
-            {article.excerpt.split(". ").slice(0, 2).join(". ")}
+            {article.excerpt.split(". ").slice(0, 2).join(". ").replace(/\.?$/, ".")}
           </p>
         </div>
         <div className="md:text-right">

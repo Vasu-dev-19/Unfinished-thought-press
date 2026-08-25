@@ -86,7 +86,7 @@ function ArticlePage() {
             </p>
           </div>
           <div className="mt-12">
-            <Prose body={article.body} />
+            <Prose body={bodyWithoutDuplicateOpening(article.excerpt, article.body)} />
           </div>
         </div>
 
@@ -142,6 +142,15 @@ function ArticlePage() {
       </section>
     </PageShell>
   );
+}
+
+/** The excerpt runs as the standfirst, so drop a body opening that repeats it. */
+function bodyWithoutDuplicateOpening(excerpt: string, body: string) {
+  const blocks = body.split(/\n\s*\n/);
+  const first = (blocks[0] ?? "").trim();
+  const head = first.split(". ")[0] ?? "";
+  if (head && excerpt.trim().startsWith(head)) return blocks.slice(1).join("\n\n");
+  return body;
 }
 
 function ShareLinks({ title, slug }: { title: string; slug: string }) {
