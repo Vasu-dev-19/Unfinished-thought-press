@@ -243,7 +243,10 @@ People who eventually open the room almost never find what they expected. They f
 export const getArticles = () =>
   [...articles].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 
-export const getFeatured = () => getArticles().find((a) => a.featured) ?? getArticles()[0];
+export const getFeatured = (): Article => {
+  const sorted = getArticles();
+  return sorted.find((a) => a.featured) ?? sorted[0]!;
+};
 
 export const getArticle = (slug: string) => articles.find((a) => a.slug === slug);
 
